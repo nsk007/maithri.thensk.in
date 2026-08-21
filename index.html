@@ -9,30 +9,55 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600;700&family=DM+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="styles.css">
+  <style>
+    .contact.contact { grid-template-columns: 1fr 2fr 1fr; gap: 3vw; }
+    .contact-visual { display: block; min-height: 0; }
+    .playlist-link { display: block; width: fit-content; margin: 30px auto 0; color: var(--paper); background: var(--red); text-decoration: none; padding: 14px 20px; font-size: 11px; text-transform: uppercase; letter-spacing: .1em; }
+    .playlist-link span { padding-left: 10px; font-size: 16px; }
+    .contact-name { font: 600 22px var(--serif); }
+    .contact-reach-label { margin-top: 14px; color: #f0d8cb; font-size: 9px; font-weight: 700; letter-spacing: .15em; text-transform: uppercase; }
+    .wordmark small { display: block; margin-top: 5px; color: var(--muted); font: 500 8px var(--sans); letter-spacing: .12em; text-transform: uppercase; }
+    .motion-ready { opacity: 0; transform: translateY(24px); transition: opacity .8s ease, transform .8s cubic-bezier(.22, .61, .36, 1); }
+    .motion-ready.is-visible { opacity: 1; transform: none; }
+    .motion-stagger { transition-delay: calc(var(--motion-order, 0) * 90ms); }
+    .practice-card, .service-row, .video-card, .photo-grid figure, .playlist-link { transition: opacity .8s ease, transform .8s cubic-bezier(.22, .61, .36, 1), color .25s ease, background-color .25s ease; }
+    .practice-card.motion-ready:hover, .video-card.motion-ready:hover { transform: translateY(-6px); }
+    main > section { scroll-margin-top: 24px; }
+    .touch-active { transform: scale(.985) !important; transition-duration: .16s !important; }
+    @media (prefers-reduced-motion: reduce) {
+      html { scroll-behavior: auto; }
+      .motion-ready, .motion-ready.is-visible { opacity: 1; transform: none; transition: none; }
+      .reveal, .reveal-delay { animation: none; }
+      .touch-active { transform: none !important; }
+    }
+    @media (max-width: 760px) {
+      .contact.contact { grid-template-columns: 1fr; gap: 24px; }
+      .contact-visual { min-height: 0; }
+    }
+  </style>
 </head>
 <body>
   <div class="grain"></div>
   <header class="site-header">
-    <a class="wordmark" href="#top" aria-label="Maithri home"><span>MB</span><strong>Maithri<br>Bhat Movvar</strong></a>
-    <nav class="nav" aria-label="Main navigation">
-      <a href="#practice">Practice</a><a href="#teaching">Teaching</a><a href="#reels">Reels</a><a href="#contact">Contact</a>
+    <a class="wordmark" href="#top" aria-label="Maithri home"><span>MB</span><strong>Maithri<br>Bhat Movvar<small>Mangalore, Karnataka</small></strong></a>
+    <nav class="nav" id="main-nav" aria-label="Main navigation">
+      <a href="#practice">Practice</a><a href="#teaching">Teaching</a><a href="#photos">Photos</a><a href="#reels">Reels</a><a href="#contact">Contact</a>
     </nav>
-    <button class="button button-dark nav-cta" data-open-booking="performance">Invite her <span>↗</span></button>
-    <button class="menu-toggle" aria-label="Toggle menu" aria-expanded="false">Menu</button>
+    <button class="button button-dark nav-cta" data-open-booking="performance">Invite me <span>↗</span></button>
+    <button class="menu-toggle" aria-label="Toggle menu" aria-controls="main-nav" aria-expanded="false">Menu</button>
   </header>
 
   <main id="top">
     <section class="hero section-pad">
       <div class="hero-copy reveal">
-        <p class="eyebrow"><span class="eyebrow-line"></span> Artist · Educator · Mangalore</p>
+        <p class="eyebrow"><span class="eyebrow-line"></span> Artist · Educator</p>
         <h1>Tradition,<br><em>in motion.</em></h1>
         <p class="hero-intro">I am a Bharatanatyam Vidushi and Mahila Yakshagana artist carrying living stories forward - on stage, in the classroom, and one student at a time.</p>
         <div class="hero-actions"><button class="button button-red" data-open-booking="training">Book a session <span>↗</span></button><a class="text-link" href="#reels">Watch my work <span>↓</span></a></div>
         <div class="hero-note"><span class="note-number">01</span><span>Classical form<br>Coastal spirit</span></div>
       </div>
       <div class="hero-art reveal reveal-delay">
-        <div class="hero-image"><img src="images/Maithri.png" alt="Maithri Bhat Movvar"></div>
-        <div class="hero-caption"><span>01 / 03</span><span>Yakshagana performance</span></div>
+        <div class="hero-image"><img src="images/hero-bharatanatyam.jpeg" alt="Maithri performing Bharatanatyam"></div>
       </div>
     </section>
 
@@ -44,29 +69,30 @@
     <section class="practice section-pad" id="practice">
       <div class="section-heading"><div><p class="section-kicker">The practice</p><h2>Two forms.<br><em>One pulse.</em></h2></div><p class="heading-aside">Rooted in Karnataka.<br>Open to the world.</p></div>
       <div class="practice-grid">
-        <article class="practice-card card-bharatanatyam"><div class="card-number">01</div><div class="card-content"><p class="card-label">Classical dance</p><h3>Bharatanatyam</h3><p>Rhythm, geometry, and rasa. Traditional nritta meets the emotional intelligence of nritya.</p><a href="#contact" class="card-link" data-open-booking="training">Train with me <span>↗</span></a></div></article>
-        <article class="practice-card card-yakshagana"><div class="card-number">02</div><div class="card-content"><p class="card-label">Coastal dance-drama</p><h3>Yakshagana</h3><p>Bold characters, vivid mukhavarnike, and stories that speak in the language of the coast.</p><a href="#reels" class="card-link">See the repertoire <span>↓</span></a></div></article>
+        <article class="practice-card card-bharatanatyam"><img src="images/dance/dance-3.jpeg" alt="Maithri performing Mohiniyattam"><div class="card-number">01</div><div class="card-content"><p class="card-label">Classical dance</p><h3>Bharatanatyam</h3><p>Rhythm, geometry, and rasa. Traditional nritta meets the emotional intelligence of nritya.</p><a href="#contact" class="card-link" data-open-booking="training">Train with me <span>↗</span></a></div></article>
+        <article class="practice-card card-yakshagana"><img src="images/yakshagana/yakshagana-1.jpeg" alt="Maithri performing Yakshagana"><div class="card-number">02</div><div class="card-content"><p class="card-label">Coastal dance-drama</p><h3>Yakshagana</h3><p>Bold characters, vivid mukhavarnike, and stories that speak in the language of the coast.</p><a href="#reels" class="card-link">See the repertoire <span>↓</span></a></div></article>
       </div>
     </section>
 
+    <section class="photo-journal section-pad" id="photos"><div class="section-heading"><div><p class="section-kicker">On stage</p><h2>Moments in<br><em>practice.</em></h2></div><p class="heading-aside">Dance.<br>Yakshagana.</p></div><div class="photo-grid"><figure class="photo-tall"><img src="images/yakshagana/yakshagana-2.jpeg" alt="Maithri in Yakshagana costume"></figure><figure><img src="images/dance/dance-2.jpeg" alt="Maithri in Bharatanatyam costume"></figure><figure><img src="images/yakshagana/yakshagana-3.jpeg" alt="Maithri as a Yakshagana character"></figure><figure class="photo-wide"><img src="images/dance/dance-3.jpeg" alt="Maithri performing classical dance outdoors"></figure><figure><img src="images/yakshagana/yakshagana-4.jpeg" alt="Maithri performing a Yakshagana role"></figure><figure><img src="images/dance/dance-4.jpeg" alt="Maithri performing Bharatanatyam on stage"></figure><figure class="photo-wide"><img src="images/yakshagana/yakshagana-5.jpeg" alt="Maithri in a Yakshagana performance"></figure><figure><img src="images/dance/dance-5.jpeg" alt="Maithri in classical dance costume"></figure></div></section>
+
     <section class="teaching section-pad" id="teaching"><div class="teaching-copy"><p class="section-kicker">The classroom</p><h2>Learning should<br><em>leave a mark.</em></h2><p>I teach Bharatanatyam and Yakshagana through private instruction and thoughtful workshops for students who want to go deeper - into movement, meaning, or the systems behind both.</p></div><div class="service-list"><button class="service-row" data-open-booking="training"><span>01</span><strong>Bharatanatyam &amp; Yakshagana training</strong><i>↗</i></button><button class="service-row" data-open-booking="workshop"><span>02</span><strong>Performance workshops</strong><i>↗</i></button><button class="service-row" data-open-booking="computer science"><span>03</span><strong>Computer science mentoring</strong><i>↗</i></button></div></section>
 
-    <section class="reels section-pad" id="reels"><div class="section-heading"><div><p class="section-kicker">Selected reels</p><h2>Watch my<br><em>work unfold.</em></h2></div><div class="filters" role="group" aria-label="Filter videos"><button class="filter active" data-filter="all">All</button><button class="filter" data-filter="yakshagana">Yakshagana</button><button class="filter" data-filter="dance">Dance</button></div></div><div class="video-grid">
+    <section class="reels section-pad" id="reels"><div class="section-heading"><div><p class="section-kicker">Selected reels</p><h2>Watch my<br><em>work unfold.</em></h2></div><div class="filters" role="group" aria-label="Filter videos"><button class="filter active" data-filter="all" aria-pressed="true">All</button><button class="filter" data-filter="yakshagana" aria-pressed="false">Yakshagana</button><button class="filter" data-filter="dance" aria-pressed="false">Dance</button></div></div><div class="video-grid">
       <a class="video-card featured" data-type="yakshagana" href="https://youtu.be/ibyjvx7yTqQ" target="_blank" rel="noreferrer"><img src="https://i.ytimg.com/vi/ibyjvx7yTqQ/hqdefault.jpg" alt="Yakshagana reel"><span class="play">▶</span><div><small>YAKSHAGANA</small><strong>In character, in rhythm</strong></div></a>
       <a class="video-card" data-type="yakshagana" href="https://youtu.be/h6rJyjkhYR0" target="_blank" rel="noreferrer"><img src="https://i.ytimg.com/vi/h6rJyjkhYR0/hqdefault.jpg" alt="Yakshagana performance reel"><span class="play">▶</span><div><small>YAKSHAGANA</small><strong>Mahila Yakshagana</strong></div></a>
       <a class="video-card" data-type="yakshagana" href="https://youtu.be/IwI3uq2k9X8" target="_blank" rel="noreferrer"><img src="https://i.ytimg.com/vi/IwI3uq2k9X8/hqdefault.jpg" alt="Yakshagana performance video"><span class="play">▶</span><div><small>YAKSHAGANA</small><strong>Stage presence</strong></div></a>
       <a class="video-card" data-type="yakshagana" href="https://youtu.be/UweCkOaVzj4" target="_blank" rel="noreferrer"><img src="https://i.ytimg.com/vi/UweCkOaVzj4/hqdefault.jpg" alt="Yakshagana stage video"><span class="play">▶</span><div><small>YAKSHAGANA</small><strong>Story in motion</strong></div></a>
-      <a class="video-card" data-type="yakshagana" href="https://youtu.be/zTQej9XjRes" target="_blank" rel="noreferrer"><img src="https://i.ytimg.com/vi/zTQej9XjRes/hqdefault.jpg" alt="Yakshagana artist video"><span class="play">▶</span><div><small>YAKSHAGANA</small><strong>Coastal traditions</strong></div></a>
+      <a class="video-card" data-type="yakshagana" href="https://youtu.be/zTQej9XjRes" target="_blank" rel="noreferrer"><img src="https://i.ytimg.com/vi/zTQej9XjRes/hqdefault.jpg" alt="Hindi Yakshagana video"><span class="play">▶</span><div><small>YAKSHAGANA</small><strong>Hindi Yakshagana</strong></div></a>
       <a class="video-card" data-type="dance" href="https://youtu.be/Ry4YoiUbWQY" target="_blank" rel="noreferrer"><img src="https://i.ytimg.com/vi/Ry4YoiUbWQY/hqdefault.jpg" alt="Bharatanatyam dance reel"><span class="play">▶</span><div><small>BHARATANATYAM</small><strong>Form and feeling</strong></div></a>
       <a class="video-card" data-type="dance" href="https://youtu.be/PN3_LjQON5w" target="_blank" rel="noreferrer"><img src="https://i.ytimg.com/vi/PN3_LjQON5w/hqdefault.jpg" alt="Classical dance reel"><span class="play">▶</span><div><small>BHARATANATYAM</small><strong>Through the gesture</strong></div></a>
       <a class="video-card" data-type="dance" href="https://youtu.be/EycZ6K8D6rQ" target="_blank" rel="noreferrer"><img src="https://i.ytimg.com/vi/EycZ6K8D6rQ/hqdefault.jpg" alt="Bharatanatyam performance video"><span class="play">▶</span><div><small>BHARATANATYAM</small><strong>Gesture and rhythm</strong></div></a>
-    </div></section>
+    </div><a class="playlist-link" href="https://youtube.com/playlist?list=PLBY7N3QZysQM&amp;si=sM0QQpispcLPoEo5" target="_blank" rel="noreferrer">Watch more on YouTube <span>↗</span></a></section>
 
-    <section class="contact section-pad" id="contact"><div class="contact-mark">MB</div><div class="contact-content"><p class="section-kicker">The next chapter</p><h2>Bring a story.<br><em>Let's make it move.</em></h2><p>For performances, collaborations, workshops, or private lessons, send me a note and I will be in touch.</p><button class="button button-red" data-open-booking="enquiry">Make an enquiry <span>↗</span></button></div><div class="contact-details"><a href="mailto:maithrimovvar@gmail.com">maithrimovvar@gmail.com</a><a href="https://wa.me/917012377220" target="_blank" rel="noreferrer">WhatsApp ↗</a><span>Mangalore, Karnataka<br>India</span><a href="https://www.facebook.com/maithria.movvar/" target="_blank" rel="noreferrer">Facebook ↗</a><a href="https://www.instagram.com/my3_bhat_/" target="_blank" rel="noreferrer">Instagram ↗</a></div></section>
+    <section class="contact section-pad" id="contact"><div class="contact-visual"><div class="contact-mark">MB</div></div><div class="contact-content"><p class="section-kicker">The next chapter</p><h2>Bring a story.<br><em>Let's make it move.</em></h2><p>For performances, collaborations, workshops, or private lessons, send me a note and I will be in touch.</p><button class="button button-red" data-open-booking="enquiry">Message me on WhatsApp <span>↗</span></button></div><div class="contact-details"><span class="contact-name">Maithri Bhat Movvar</span><span>Mangalore, Karnataka<br>India</span><span class="contact-reach-label">Reach me through</span><a href="mailto:maithrimovvar@gmail.com">Email ↗</a><a href="https://wa.me/917012377220?text=Hello%20Maithri%2C%20I%20would%20like%20to%20know%20more%20about%20your%20work%20and%20services." target="_blank" rel="noreferrer">WhatsApp ↗</a><a href="https://www.facebook.com/maithria.movvar/" target="_blank" rel="noreferrer">Facebook ↗</a><a href="https://www.instagram.com/my3_bhat_/" target="_blank" rel="noreferrer">Instagram ↗</a></div></section>
   </main>
   <footer><span>© 2026 Maithri Bhat Movvar</span><span>Artist · Teacher · Storyteller</span></footer>
 
-  <dialog class="booking-dialog" id="booking-dialog"><button class="dialog-close" aria-label="Close booking form">×</button><p class="section-kicker">Let's begin</p><h2 id="dialog-title">Book a session.</h2><p id="dialog-copy">Tell me what you have in mind.</p><form id="booking-form" name="booking" method="POST" data-netlify="true" netlify-honeypot="bot-field"><input type="hidden" name="form-name" value="booking"><p class="hidden-field"><label>Do not fill this out<input name="bot-field"></label></p><label>Your name<input name="name" required autocomplete="name"></label><label>Email address<input name="email" type="email" required autocomplete="email"></label><label>I'm interested in<select name="interest" id="interest"><option>Bharatanatyam &amp; Yakshagana training</option><option>Performance booking</option><option>Performance workshop</option><option>Computer science mentoring</option><option>Something else</option></select></label><label>A little about it<textarea name="message" rows="4" required></textarea></label><button class="button button-dark" type="submit">Send enquiry <span>↗</span></button><p class="form-status" aria-live="polite"></p></form></dialog>
-  <script src="script.js"></script>
+  <script src="script.js?v=5"></script>
 </body>
 </html>
