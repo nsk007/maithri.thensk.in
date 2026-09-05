@@ -1,5 +1,23 @@
 const menuToggle = document.querySelector('.menu-toggle');
 const nav = document.querySelector('.nav');
+const textTargets = document.querySelectorAll('h1, h2');
+textTargets.forEach((heading) => heading.classList.add('text-reveal'));
+document.querySelectorAll('h2').forEach((heading) => {
+  if (heading.querySelector('.section-dot')) return;
+  const walker = document.createTreeWalker(heading, NodeFilter.SHOW_TEXT);
+  const textNodes = [];
+  let node;
+  while ((node = walker.nextNode())) textNodes.push(node);
+  const lastTextNode = textNodes[textNodes.length - 1];
+  if (!lastTextNode) return;
+  const dot = document.createElement('span');
+  dot.className = 'section-dot';
+  dot.textContent = '.';
+  if (lastTextNode.textContent.endsWith('.')) {
+    lastTextNode.textContent = lastTextNode.textContent.slice(0, -1);
+  }
+  lastTextNode.parentNode.append(dot);
+});
 
 const motionTargets = document.querySelectorAll('main > section:not(.hero), .practice-card, .service-row, .video-card, .photo-grid figure, .playlist-link');
 const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
@@ -9,11 +27,13 @@ motionTargets.forEach((element, index) => {
 });
 if (reduceMotion) {
   motionTargets.forEach((element) => element.classList.add('is-visible'));
+  textTargets.forEach((heading) => heading.classList.add('text-visible'));
 } else {
   const motionObserver = new IntersectionObserver((entries, observer) => {
     entries.forEach((entry) => {
       if (entry.isIntersecting) {
         entry.target.classList.add('is-visible');
+        entry.target.querySelectorAll('h1, h2').forEach((heading) => heading.classList.add('text-visible'));
         observer.unobserve(entry.target);
       }
     });
@@ -24,6 +44,10 @@ if (reduceMotion) {
     motionTargets.forEach((element) => {
       const bounds = element.getBoundingClientRect();
       if (bounds.top < viewportHeight * 0.92 && bounds.bottom > 0) element.classList.add('is-visible');
+    });
+    textTargets.forEach((heading) => {
+      const bounds = heading.getBoundingClientRect();
+      if (bounds.top < viewportHeight * 0.92 && bounds.bottom > 0) heading.classList.add('text-visible');
     });
   };
   window.addEventListener('scroll', revealVisibleTargets, { passive: true });
